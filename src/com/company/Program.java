@@ -62,17 +62,36 @@ public class Program {
         if (title.equals("photo")) {
             Product photo = new PhotoPr();
             photo.setName(title);
+
+            String priceStr = keyboard("price");
+            photo.setPrice(Double.valueOf(priceStr));
+
+            String quantityStr = keyboard("quantity");
+            photo.setQuantity(Double.valueOf(quantityStr));
+            return photo;
+        }
+        else if (title.equals("shoes")) {
+            Product bot = new BotPr();
+            bot.setName(title);
+
+            String priceStr = keyboard("price");
+            bot.setPrice(Double.valueOf(priceStr));
+
+            String quantityStr = keyboard("quantity");
+            bot.setQuantity(Double.valueOf(quantityStr));
+            return bot;
         }
 
 
         //дописать else, выделить то, что ниже, в отдельный метод (или if/else в отдельный метод?),
         //вызывать из этого метода
-        String priceStr = keyboard("price");
+        /*String priceStr = keyboard("price");
         product.setPrice(Double.valueOf(priceStr));
 
         String quantityStr = keyboard("quantity");
         product.setQuantity(Double.valueOf(quantityStr));
-        return product;
+        return product;*/
+        return null;
     }
 
     private void output(){
