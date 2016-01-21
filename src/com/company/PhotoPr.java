@@ -1,8 +1,5 @@
 package com.company;
 
-/**
- * Created by snakehunter on 11.01.16.
- */
 public class PhotoPr extends Product {
 
     private double mpix;
@@ -17,7 +14,7 @@ public class PhotoPr extends Product {
         this.mpix = nMpix;
     }
 
-    public boolean digital() {
+    public boolean getDigital() {
         return digital;
     }
 

@@ -2,9 +2,6 @@ package com.company;
 
 import java.util.Scanner;
 
-/**
- * Created by snakehunter on 22.12.15.
- */
 public class Program {
 
     private Deal[] deals = new Deal[10];
@@ -60,8 +57,14 @@ public class Program {
         //Product product = new Product();
         //product.setName(title);
         if (title.equals("photo")) {
-            Product photo = new PhotoPr();
+            PhotoPr photo = new PhotoPr();
             photo.setName(title);
+
+            String setMpixStr = keyboard("mpix");
+            photo.setMpix(Double.valueOf(setMpixStr));
+
+            String setDigitalStr = keyboard("digital");
+            photo.setDigital(Boolean.valueOf(setDigitalStr));
 
             String priceStr = keyboard("price");
             photo.setPrice(Double.valueOf(priceStr));
@@ -69,6 +72,7 @@ public class Program {
             String quantityStr = keyboard("quantity");
             photo.setQuantity(Double.valueOf(quantityStr));
             return photo;
+
         }
         else if (title.equals("shoes")) {
             Product bot = new BotPr();
