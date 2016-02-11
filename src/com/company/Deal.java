@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -9,12 +10,12 @@ public class Deal {
     private Date date = new Date();
     private Party seller;
     private Party buyer;
-    private Product[] products;
+    private Collection<Product> products;
 
-    public Deal(Party seller, Party buyer, Product[] products){
+    public Deal(Party buyer, Party seller, Collection<Product> products){
         date = new Date();
-        this.seller = seller;
         this.buyer = buyer;
+        this.seller = seller;
         this.products = products;
     }
     //getSeller, getBuyer, getProducts
@@ -29,7 +30,7 @@ public class Deal {
     public Party getSeller(){
         return seller;
     }
-    public Product[] getProducts(){
+    public Collection<Product> getProducts(){
         return products;
     }
     public double getSum(){

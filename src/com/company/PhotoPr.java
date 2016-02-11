@@ -30,4 +30,8 @@ public class PhotoPr extends Product {
         }
         return def;
     }
+
+    protected void printMpix() {
+        System.out.println(getMpix());
+    }
 }

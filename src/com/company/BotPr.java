@@ -4,14 +4,14 @@ package com.company;
  * Created by mint on 17.01.16.
  */
 public class BotPr extends Product{
-    private double razmer;
+    private double size;
 
-    public double getRazmer() {
-        return razmer;
+    public double getSize() {
+        return size;
     }
 
-    public void setRazmer (double nRazmer) {
-        this.razmer = nRazmer;
+    public void setSize (double nSize) {
+        this.size = nSize;
     }
 
 }
