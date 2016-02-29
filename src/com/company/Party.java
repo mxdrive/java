@@ -22,19 +22,19 @@ public class Party {
         this.address = newAddr;
     }
 
-//    public  String[] getKeys() {
-//        return keys;
-//    }
-//
-//    public String[] getValues() {
-//        return values;
-//    }
-//
-//    public void setKeys(String[] key) {
-//        this.keys = key;
-//    }
-//
-//    public void setValues(String[] value) {
-//        this.values = value;
-//    }
+    public  String[] getKeys() {
+        return keys;
+    }
+
+    public String[] getValues() {
+        return values;
+    }
+
+    public void setKeys(String[] key) {
+        this.keys = key;
+    }
+
+    public void setValues(String[] value) {
+        this.values = value;
+    }
 }
