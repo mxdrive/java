@@ -1,8 +1,5 @@
 package com.company;
 
-/**
- * Created by snakehunter on 22.12.15.
- */
 public abstract class Product {
     private double quantity;
     private double price;

@@ -1,24 +1,21 @@
 package com.company;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Created by snakehunter on 22.12.15.
- */
 public class Deal {
     private Date date = new Date();
     private Party seller;
     private Party buyer;
-    private Collection<Product> products;
+    private Map<Product, Double> products = new HashMap<>();
 
-    public Deal(Party buyer, Party seller, Collection<Product> products){
+    public Deal(Party buyer, Party seller, Map<Product, Double> products){
         date = new Date();
         this.buyer = buyer;
         this.seller = seller;
         this.products = products;
     }
-    //getSeller, getBuyer, getProducts
 
     public Date getDate() {
         return date;
@@ -30,13 +27,14 @@ public class Deal {
     public Party getSeller(){
         return seller;
     }
-    public Collection<Product> getProducts(){
+    public Map<Product, Double> getProducts(){
         return products;
     }
+
     public double getSum(){
         double res = 0;
-        for (Product product:products){
-            res += product.getCost();
+        for (Map.Entry<Product, Double>entry:products.entrySet()){
+            res += entry.getKey().getCost();
         }
         return res;
     }
