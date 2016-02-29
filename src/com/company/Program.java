@@ -55,20 +55,28 @@ public class Program {
         String partyName = keyboard("    Party name");
         String partyAddress = keyboard("    Party address");
 
-//        String[] keys = new String[2];
-//        String[] values = new String[2];
-//        for (int i = 0; i < values.length; i++) {
-//            keys[i] = keyboard("Input key ");
-//            values[i] = keyboard("Input value ");
-//        }
+        int MAX_KV = 2;
+        Map<String, String> kv = new HashMap<>(MAX_KV);
+        for (int i = 0; i < MAX_KV; i++) {
+            kv.put(inputKey(), inputValue());
+        }
 
         Party party = new Party();
         party.setName(partyName);
         party.setAddress(partyAddress);
-//        party.setKeys(keys);
-//        party.setValues(values);
+        party.setKeysValues(kv);
 
         return party;
+    }
+
+    private String inputKey() {
+        String key = keyboard("    Key ");
+        return key;
+    }
+
+    private String inputValue() {
+        String value = keyboard("    Value ");
+        return value;
     }
 
     private Product inputProduct(){
@@ -114,6 +122,7 @@ public class Program {
     private void outputParty(Party party) {
         System.out.println(party.getName() + ": ");
         System.out.println(party.getAddress());
+        System.out.println(party.getKeysValues());
         System.out.println("--------------------");
     }
 
@@ -121,7 +130,6 @@ public class Program {
         for (Deal deal : deals) {
             System.out.println("Date " + deal.getDate());
             System.out.println("  " + deal.getBuyer().getName() + " buys from " + deal.getSeller().getName());
-//            System.out.println(PhDig);
 
             for (Map.Entry<Product, Double> entries:deal.getProducts().entrySet()) {
                 Product product = entries.getKey();
@@ -131,13 +139,12 @@ public class Program {
                         product.getPrice()*product.getQuantity());
             }
 
-
-
             System.out.println("Sum: " + deal.getSum());
             System.out.println("______________________");
 
             outputParty(deal.getBuyer());
             outputParty(deal.getSeller());
+
         }
 
     }

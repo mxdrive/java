@@ -1,10 +1,12 @@
 package com.company;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Party {
     private String name;
     private String address;
-    private String[] keys;
-    private String[] values;
+    private Map<String, String> keysValues = new HashMap<>();
 
     public String getName(){
         return name;
@@ -22,19 +24,13 @@ public class Party {
         this.address = newAddr;
     }
 
-//    public  String[] getKeys() {
-//        return keys;
-//    }
-//
-//    public String[] getValues() {
-//        return values;
-//    }
-//
-//    public void setKeys(String[] key) {
-//        this.keys = key;
-//    }
-//
-//    public void setValues(String[] value) {
-//        this.values = value;
-//    }
+    public Map<String, String> getKeysValues() {
+        return keysValues;
+    }
+
+    public void setKeysValues(Map<String, String> val)
+    {
+        this.keysValues = val;
+    }
+
 }
