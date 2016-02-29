@@ -5,7 +5,6 @@ import java.util.*;
 public class Program {
 
     //TODO choice of inputted products
-
     private Deal[] deals = new Deal[10];
 
     public static void main(String[] args) {
