@@ -4,8 +4,11 @@ import java.util.*;
 
 public class Program {
 
-    //TODO choice of inputted products
     private Deal[] deals = new Deal[10];
+
+    Map<Product, Double> products = new LinkedHashMap<>();
+
+    String choice = null;
 
     public static void main(String[] args) {
         new Program().allActions();
@@ -41,15 +44,67 @@ public class Program {
         System.out.println("Seller: ");
         Party seller = inputParty();
 
-        int MAX_PRODUCTS = 2;
-        Map<Product, Double> products = new HashMap<>();
+        //TODO product choosing
+        int MAX_PRODUCTS = 4;
+//        Map<Product, Double> products = new LinkedHashMap<>();
         while (products.size() < MAX_PRODUCTS){
-            Product product = inputProduct();
-            products.put(product, product.getQuantity());
+            Product product = null;
+            String msg = keyboard("Do you want to choose product from existing?\n Yes - 1, No - 2");
+            if (msg.equals("1")) {
+                if (products.size() == 0) {
+                    System.out.println("Product base is empty! Enter new product");
+                } else {
+//                    for (int i = 0; i < products.size(); i++) {
+//                        for (Map.Entry<Product, Double> entry:products.entrySet()) {
+//                            product = entry.getKey();
+//                            System.out.println(i + " - " + product.getName() + "\n");
+//                        }
+//                    }
+//
+//                    String choice = keyboard("Please input number of product");
+//
+//                    for (int k = 0; k < products.size(); k++) {
+////                        String choice = keyboard("Please input number of product");
+//                        for (Map.Entry<Product, Double> entry:products.entrySet()) {
+//                            product = entry.getKey();
+//                            System.out.println("getKey" + product);
+//                            System.out.println(product);
+//                            if (k == Integer.valueOf(choice)) {
+//                                System.out.println(products + "before adding");
+//                                System.out.println(product + "inside");
+//                                products.put(product, product.getQuantity());
+//                                System.out.println(products + "after adding");
+//                                break;
+//                            }
+//                        }
+//                    }
+
+
+                }
+            } else if (msg.equals("2")) {
+                product = inputProduct();
+                products.put(product, product.getQuantity());
+            } else {
+                System.out.println("Input is incorrect. Please retry");
+            }
+
         }
 
         Deal deal = new Deal(buyer, seller, products);
         return deal;
+    }
+
+    private Product mapIterator() {
+        int i = 0;
+        Product product = null;
+        for (Map.Entry<Product,Double> entry:products.entrySet()) {
+            product = entry.getKey();
+            System.out.println(i + " - " + product);
+            if (i == Integer.valueOf(choice)) {
+                return product;
+            } else return null;
+        }
+        return product;
     }
 
     private Party inputParty() {
