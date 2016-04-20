@@ -4,11 +4,19 @@ import java.util.*;
 
 public class Program {
 
-    private Deal[] deals = new Deal[10];
+    //private Deal[] deals = new Deal[10];
+    private Collection<Deal> deals = new LinkedList<>();
+    //сделал product приватной глобальной переманной, покомментил, где он был локальным. Вроде, все ок
+    private Product product = null;
 
-    Map<Product, Double> products = new LinkedHashMap<>();
+    private LinkedList<PhotoPr> photos = new LinkedList<>();
+    private LinkedList<BotPr> shoes = new LinkedList<>();
+    private Product localProduct = null;
 
-    String choice = null;
+//    Map<Product, Double> products = new LinkedHashMap<>();
+    private LinkedList<Product> prods = new LinkedList<>();
+
+    private int choice = 0;
 
     public static void main(String[] args) {
         new Program().allActions();
@@ -29,10 +37,13 @@ public class Program {
     private void input(){
 
         int MAX_DEALS = 2;
-        deals = new Deal[MAX_DEALS];
-        for (int i = 0; i < deals.length; i++) {
-            System.out.print((i + 1) + " of " + deals.length + ": ");
-            deals[i] = inputDeal();
+
+        while (deals.size() < MAX_DEALS) {
+            Deal deal = inputDeal();
+            deals.add(deal);
+            System.out.println("getProducts - " + deal.getProducts());
+            System.out.println("quantity of deals - " + deals);
+            System.out.println("quantity of prods - " + prods);
         }
 
     }
@@ -44,66 +55,76 @@ public class Program {
         System.out.println("Seller: ");
         Party seller = inputParty();
 
-        //TODO product choosing
+        Deal deal = new Deal(buyer, seller);
+
         int MAX_PRODUCTS = 4;
-//        Map<Product, Double> products = new LinkedHashMap<>();
-        while (products.size() < MAX_PRODUCTS){
-            Product product = null;
+        while (deal.getProducts().size() < MAX_PRODUCTS){
+
             String msg = keyboard("Do you want to choose product from existing?\n Yes - 1, No - 2");
             if (msg.equals("1")) {
-                if (products.size() == 0) {
+                if (prods.size() == 0) {
                     System.out.println("Product base is empty! Enter new product");
                 } else {
-//                    for (int i = 0; i < products.size(); i++) {
-//                        for (Map.Entry<Product, Double> entry:products.entrySet()) {
-//                            product = entry.getKey();
-//                            System.out.println(i + " - " + product.getName() + "\n");
-//                        }
-//                    }
-//
-//                    String choice = keyboard("Please input number of product");
-//
-//                    for (int k = 0; k < products.size(); k++) {
-////                        String choice = keyboard("Please input number of product");
-//                        for (Map.Entry<Product, Double> entry:products.entrySet()) {
-//                            product = entry.getKey();
-//                            System.out.println("getKey" + product);
-//                            System.out.println(product);
-//                            if (k == Integer.valueOf(choice)) {
-//                                System.out.println(products + "before adding");
-//                                System.out.println(product + "inside");
-//                                products.put(product, product.getQuantity());
-//                                System.out.println(products + "after adding");
-//                                break;
-//                            }
-//                        }
-//                    }
-
-
+                    mapIterator();
+                    choice = Integer.valueOf(keyboard("Please input number of product"));
+                    product = mapIteratorChoice();
+                    String quantity = keyboard(" Input quantity");
+                    localProduct.setQuantity(Double.valueOf(quantity));
+                    deal.getProducts().put(localProduct, Double.valueOf(quantity));
+                    System.out.println(deal.getProducts());
                 }
             } else if (msg.equals("2")) {
                 product = inputProduct();
-                products.put(product, product.getQuantity());
+                prods.add(product);
+                deal.getProducts().put(product, product.getQuantity());
             } else {
                 System.out.println("Input is incorrect. Please retry");
             }
 
         }
 
-        Deal deal = new Deal(buyer, seller, products);
         return deal;
     }
 
-    private Product mapIterator() {
-        int i = 0;
-        Product product = null;
-        for (Map.Entry<Product,Double> entry:products.entrySet()) {
-            product = entry.getKey();
-            System.out.println(i + " - " + product);
-            if (i == Integer.valueOf(choice)) {
-                return product;
-            } else return null;
+    private void mapIterator() {
+
+        for (int i = 0; i < prods.size(); i++) {
+            System.out.println(i + " - " + prods.get(i));
         }
+    }
+
+    private Product mapIteratorChoice() {
+
+        for (int i = 0; i < prods.size(); i++) {
+            product = prods.get(i);
+            if (i == choice) {
+                for (int p = 0; p < photos.size(); p++) {
+                    PhotoPr localProductPhoto = photos.get(p);
+                    if (localProductPhoto.equals(product)) {
+                        PhotoPr local = new PhotoPr();
+                        local.setName(localProductPhoto.getName());
+                        local.setMpix(localProductPhoto.getMpix());
+                        local.setDigital(localProductPhoto.getDigital());
+                        local.setPrice(localProductPhoto.getPrice());
+                        localProduct = local;
+                        photos.add(local);
+                    }
+                }
+                for (int s = 0; s < shoes.size(); s++) {
+                    BotPr localProductBot = shoes.get(s);
+                    if (localProductBot.equals(product)) {
+                        BotPr local = new BotPr();
+                        local.setName(localProductBot.getName());
+                        local.setSize(localProductBot.getSize());
+                        local.setPrice(localProductBot.getPrice());
+                        localProduct = local;
+                        shoes.add(local);
+                    }
+                }
+                prods.add(product);
+            }
+        }
+        System.out.println("localProduct - " + localProduct);
         return product;
     }
 
@@ -137,7 +158,6 @@ public class Program {
 
     private Product inputProduct(){
         String title = keyboard("Product title");
-        Product product = null;
         if (title.equals("photo")) {
             PhotoPr photo = new PhotoPr();
             photo.setName(title);
@@ -154,6 +174,8 @@ public class Program {
             String quantityStr = keyboard("Quantity");
             photo.setQuantity(Double.valueOf(quantityStr));
 
+            photos.add(photo);
+
             product = photo;
         }
         else if (title.equals("shoes")) {
@@ -168,6 +190,8 @@ public class Program {
 
             String quantityStr = keyboard("Quantity");
             bot.setQuantity(Double.valueOf(quantityStr));
+
+            shoes.add(bot);
 
             product = bot;
         }

@@ -10,11 +10,11 @@ public class Deal {
     private Party buyer;
     private Map<Product, Double> products = new HashMap<>();
 
-    public Deal(Party buyer, Party seller, Map<Product, Double> products){
+    public Deal(Party buyer, Party seller){
         date = new Date();
         this.buyer = buyer;
         this.seller = seller;
-        this.products = products;
+//        this.products = products;
     }
 
     public Date getDate() {
@@ -27,6 +27,7 @@ public class Deal {
     public Party getSeller(){
         return seller;
     }
+
     public Map<Product, Double> getProducts(){
         return products;
     }
