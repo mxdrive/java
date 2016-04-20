@@ -35,7 +35,6 @@ public class Program {
     }
 
     private void input(){
-
         int MAX_DEALS = 2;
 
         while (deals.size() < MAX_DEALS) {
